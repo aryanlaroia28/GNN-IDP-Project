@@ -17,37 +17,33 @@ Intrinsically disordered proteins (IDPs) are crucial biomolecules with diverse f
     - [Contact Maps Analysis](#31-contact-maps-analysis)
     - [GMM Clustering](#32-gmm-clustering)
 
+
 ## 1. Introduction
-[Your introduction text goes here]
+Intrinsic disorder in proteins signifies the absence of a stable three-dimensional structure under physiological conditions, contrasting with traditional structured proteins. Intrinsically disordered proteins (IDPs) exhibit significant structural plasticity, transiently adopting secondary structure elements without dominance. IDP regions feature low sequence complexity and a high proportion of disorder-promoting amino acids like proline, glycine, and charged residues. These flexible regions enable IDPs to adopt multiple conformations and interact with diverse binding partners. IDPs are integral to diverse cellular processes, acting as molecular switches, participating in signaling pathways, and facilitating protein-protein interactions. Their association with diseases like cancer, viral infections, and neurodegenerative disorders highlights their multifaceted roles. Despite challenges in clinical management, understanding IDPs’ dynamic nature is crucial, as they lack stable structures and contribute to various cellular functions and disease mechanisms. Conventional structure-based drug discovery (SBDD) relies on stable binding sites, presenting challenges with intrinsically disordered proteins (IDPs) due to their flexible conformational states. Recent advances in Molecular Dynamics (MD) simulations have revolutionized the study of Intrinsically Disordered Proteins (IDPs), offering detailed insights into their dynamic conformational landscapes. Enhanced computational power and IDP-specific force fields enable the generation of realistic simulations, producing extensive datasets of potential 3D conformations. However, processing and interpreting this vast data present challenges in identifying function-ally relevant conformational ensembles. To tackle this, the integration of advanced Artificial Intelligence/Machine Learning (AI/ML) algorithms is performed.
 
 ## 2. Methodology
 
 ### 2.1 Clustering and its challenges
-[Explanation of clustering challenges in IDPs]
+Clustering is a vital technique in data analysis that seeks to arrange a set of items so that those within the same group, or cluster, share greater similarities with each other than with those in other clusters. Clustering analysis of intrinsically disordered proteins (IDPs) poses significant methodological challenges due to their dynamic conformational behavior. Unlike structured proteins, IDPs exhibit a wide range of fluctuating conformations, rendering traditional clustering algorithms less effective as they typically rely on the presence of stable structural features. Moreover, the conformational space of IDPs is inherently high-dimensional, owing to the myriad degrees of freedom within their structure. Compounding these challenges is the lack of clear boundaries between conformational clusters in IDPs, as their inherent flexibility results in overlapping or continuous distributions of structural states. Addressing these methodological hurdles requires the development of novel clustering approaches tailored to accommodate the dynamic and high-dimensional nature of IDP data, thereby facilitating more accurate categorization and analysis of these biologically important molecules.
 
 ### 2.2 Generating Contact Maps from MD Trajectories
-[Description of the contact map generation process]
+In the analysis of Molecular Dynamics (MD) simulations of IDPs, Python libraries including NumPy, SciPy, and Matplotlib were utilized for numerical operations, scientific computations, and visualization of contact maps, respectively. The methodology involves selecting Cα atoms to represent amino acid residue position. Distance matrices are then calculated to depict pairwise distances between Cα atoms in each trajectory frame. These matrices undergo transformation to emphasize closer interactions, followed by contact map computation using a defined threshold (e.g., 10 angstroms) to identify significant contacts. Modifications, such as adjusting diagonal elements to prevent division by zero and normalization, are applied to enhance close contacts. Finally, the contact maps are visualized using colormap representations, where color intensity reflects atom proximity. Normalization of contact maps is also crucial to reduce bias due to varied numbers of contacts per residue, enhancing the interpretation of interaction strengths and frequencies across the protein.
 
 ### 2.3 Node2Vec Embedding
-[Explanation of Node2Vec embedding and its application]
+In the context of analyzing contact maps of intrinsically disordered proteins (IDPs), an essential step involves leveraging techniques like Node2Vec for effective data representation and analysis. Node2vec is an algorithm used for generating embeddings for nodes in a graph. It is based on the skip-gram model, which is commonly used in word embeddings like Word2Vec. In skip-gram, the objective is to predict the context words (neighbors) given a target word. Similarly, in node2vec, the algorithm aims to learn embeddings for nodes in such a way that nodes with similar neighborhood structures have similar embeddings. Node2vec achieves this by performing random walks on the graph. These random walks are biased to explore both local neighborhoods (breadth-first) and global structures (depth-first). By sampling these walks, node2vec captures both local and global graph structures, allowing it to generate meaningful embeddings for nodes. The project's pipeline involved embedding graphs (or contact maps) into finite-dimensional vectors, followed by dimensional reduction and clustering.
 
 ### 2.4 K-PCA Dimensional Reduction
-[Description of K-PCA and its role in dimensionality reduction]
+The aggregated embeddings obtained from Node2Vec were characterized by high dimensions, presenting a challenge for clustering the graphs effectively. Consequently, Kernel Principal Component Analysis (KPCA) was implemented to address this issue. KPCA serves as an extension of traditional Principal Component Analysis (PCA), facilitating nonlinear dimensionality reduction by implicitly mapping data into a higher-dimensional space through a kernel function prior to PCA application. This approach enables KPCA to discern and capture intricate patterns and structures within the data, which may elude efficient capture by linear techniques such as PCA.
 
 ### 2.5 Clustering: Gaussian Mixture Model
-[Explanation of GMM and its application in clustering IDP structures]
+Clustering methods like k-means and t-SNE are commonly used for data analysis, but when dealing with Intrinsically Disordered Protein (IDP) structures, a unique challenge arises. The continuous nature of conformations in IDPs makes it difficult to distinctly classify them into single clusters. To address this challenge, we opted for Gaussian Mixture Models (GMM) due to their ability to accommodate overlapping clusters using a probabilistic approach. In GMM, the assumption is that data points are generated from a mixture of several Gaussian distributions, each characterized by its mean and covariance. The primary objective of GMM is to uncover these underlying Gaussian distributions that best describe the data. This is achieved through iterative adjustments of parameters such as means, covariances, and mixture coefficients, aiming to maximize the likelihood of observing the data. 
 
-## 3. Results and Conclusion
+## 3. Results and Conclusion 
+### 3.1 Contact Maps Analysis 
+The contact maps generated from the simulation offer a detailed view of the interactions between individual residues within the protein. Each contact map consists of a 42x42 matrix, as Aβ42 has 42 Cα atoms. Distance Map is a representation of spatial distance between atoms and contact map is a binary matrix based on a particular threshold (e.g., 10 angstroms) value to consider it as a contact or not. By analyzing each frame of the simulation, we gain insight into how the protein’s shape and structure change dynamically over time. This approach helps in understanding the protein’s conformational landscape and how it evolves throughout the simulation.
 
-### 3.1 Contact Maps Analysis
-[Analysis of contact maps generated from the simulation]
+### 3.2  GMM Clustering 
+As a result of the above steps, a total of 80 clusters were obtained, with a silhouette score of 0.623 and DBI (Davies Bouldin Index) score of 0.622, indicating excellent clustering results.
 
-### 3.2 GMM Clustering
-[Description of the clustering results obtained, including silhouette and DBI scores]
 
-## License
-[Include license information]
-
-## Acknowledgements
-[If applicable, acknowledge any contributors or resources]
 
